@@ -24,9 +24,6 @@ movies = sqlalchemy.Table(
     sqlalchemy.Column("vote_count", sqlalchemy.BIGINT),
 )
 
-metadata.drop_all(conn)
-metadata.create_all(conn)
-
 
 def write_db(data):
     for item in data:
