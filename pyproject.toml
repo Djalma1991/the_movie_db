@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "the_movie_db"
+version = "0.1.0"
+description = "Studying web development using The MovieDB API, fast API, postgres."
+authors = ["Djalma1991 <djalma.1991@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = "^1.4.39"
+psycopg2-binary = "^2.9.3"
+httpx = "^0.23.0"
+Pygments = "^2.12.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
