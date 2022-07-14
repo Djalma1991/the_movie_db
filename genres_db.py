@@ -11,7 +11,7 @@ genres = sqlalchemy.Table(
 )
 
 
-class Genres(DB):
+class GenresDb(DB):
     def __init__(self):
         super().__init__()
         self.genres: sqlalchemy.Table = genres
@@ -33,7 +33,7 @@ class Genres(DB):
 
 
 def write_db(data: list[dict]):
-    db = Genres()
+    db = GenresDb()
     for item in data:
         if db.select(id=item["id"]):
             id = item.pop("id")

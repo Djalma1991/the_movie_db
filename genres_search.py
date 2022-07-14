@@ -1,15 +1,11 @@
-import json
-from os import environ
-
-import httpx
+from http_generic import ApiCall
 
 
 def genres():
-    uri = "https://api.themoviedb.org/3/genre/movie/list"
-    query = {"api_key": environ["API_KEY"], "language": "en-US", "page": 1}
+    call = ApiCall(path="/genre/movie/list")
+    r = call.get({"language": "en-US"})
     results = []
-    resp = httpx.get(url=uri, params=query)
-    data = resp.json()
+    data = r.json()
     results.extend(data["genres"])
 
     return results
