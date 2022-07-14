@@ -1,5 +1,6 @@
+from genres_db import write_db as write_genres
 from genres_search import genres
-from movies_db import write_db
+from movies_db import write_db as write_movies
 from movies_search import search_movie_by_name
 
 options = {"1": search_movie_by_name, "2": genres}
@@ -17,9 +18,11 @@ def run():
         raise ValueError("Invalid option")
     if int(method) == 1:
         movie_name = input("Type the name of movie that you're looking for: ")
-        func(movie_name)
-    else:
-        func()
+        data = func(movie_name)
+        write_movies(data)
+    elif int(method) == 2:
+        data = func()
+        write_genres(data)
 
 
 if __name__ == "__main__":
