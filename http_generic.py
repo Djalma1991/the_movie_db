@@ -12,4 +12,4 @@ class ApiCall:
     def get(self, params: dict) -> list[dict]:
         self.query.update(params)
         resp = httpx.get(self.uri, params=self.query)
-        return resp
+        return resp.json()

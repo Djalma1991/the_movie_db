@@ -34,7 +34,7 @@ class GenresDb(DB):
 
 def write_db(data: list[dict]):
     db = GenresDb()
-    for item in data:
+    for item in data["genres"]:
         if db.select(id=item["id"]):
             id = item.pop("id")
             db.update(values=item, id=id)

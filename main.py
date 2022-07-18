@@ -1,9 +1,9 @@
 from genres_db import write_db as write_genres
-from genres_search import genres
+from genres_search import GenresAPI
 from movies_db import write_db as write_movies
 from movies_search import search_movie_by_name
 
-options = {"1": search_movie_by_name, "2": genres}
+options = {"1": search_movie_by_name, "2": GenresAPI}
 
 
 def run():
@@ -22,7 +22,8 @@ def run():
         write_movies(data)
     elif int(method) == 2:
         data = func()
-        write_genres(data)
+        results = data.get(params={"language": "en-US"})
+        write_genres(results)
 
 
 if __name__ == "__main__":

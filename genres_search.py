@@ -1,11 +1,9 @@
 from http_generic import ApiCall
 
 
-def genres():
-    call = ApiCall(path="/genre/movie/list")
-    r = call.get({"language": "en-US"})
-    results = []
-    data = r.json()
-    results.extend(data["genres"])
+class GenresAPI(ApiCall):
+    def __init__(self, path="/genre/movie/list") -> None:
+        super().__init__(path)
 
-    return results
+    def get(self) -> None:
+        ...
