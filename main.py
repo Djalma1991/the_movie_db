@@ -1,9 +1,9 @@
 from genres_db import write_db as write_genres
 from genres_search import GenresAPI
 from movies_db import write_db as write_movies
-from movies_search import search_movie_by_name
+from movies_search import MovieAPI
 
-options = {"1": search_movie_by_name, "2": GenresAPI}
+options = {"1": MovieAPI, "2": GenresAPI}
 
 
 def run():
@@ -18,8 +18,15 @@ def run():
         raise ValueError("Invalid option")
     if int(method) == 1:
         movie_name = input("Type the name of movie that you're looking for: ")
-        data = func(movie_name)
-        write_movies(data)
+        params = {
+            "language": "en-US",
+            "query": movie_name,
+            "page": 1,
+            "include_adult": True,
+        }
+        data = func()
+        results = data.get(params=params)
+        write_movies(results)
     elif int(method) == 2:
         data = func()
         results = data.get(params={"language": "en-US"})

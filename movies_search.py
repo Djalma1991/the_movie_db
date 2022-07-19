@@ -3,24 +3,23 @@ from os import environ
 
 import httpx
 
+from http_generic import ApiCall
 
-def search_movie_by_name(movie_name):
-    uri = "https://api.themoviedb.org/3/search/movie"
-    query = {
-        "api_key": environ["API_KEY"],
-        "language": "en-US",
-        "query": movie_name,
-        "page": 1,
-        "include_adult": True,
-    }
 
-    results = []
-    while True:
-        resp = httpx.get(url=uri, params=query)
-        data = resp.json()
-        results.extend(data["results"])
-        query["page"] = query["page"] + 1
-        if not data["results"]:
-            break
+class MovieAPI(ApiCall):
+    def __init__(self, path="/search/movie") -> None:
+        super().__init__(path)
 
-    return results
+    def get(self, params: dict) -> list[dict]:
+
+        results = []
+        while True:
+            self.query.update(params)
+            resp = httpx.get(url=self.uri, params=self.query)
+            data = resp.json()
+            results.extend(data["results"])
+            params["page"] = params["page"] + 1
+            if not data["results"]:
+                break
+
+        return results
