@@ -7,9 +7,6 @@ from http_generic import ApiCall
 
 
 class MovieAPI(ApiCall):
-    def __init__(self, path="/search/movie") -> None:
-        super().__init__(path)
-
     def get(self, params: dict) -> list[dict]:
 
         results = []
@@ -23,3 +20,9 @@ class MovieAPI(ApiCall):
                 break
 
         return results
+
+    def post(self, params: dict, json: dict) -> bool:
+        self.query.update(params)
+        post = httpx.post(url=self.uri, params=self.query, json=json)
+        result = post.status_code()
+        return True if result == 201 else False
